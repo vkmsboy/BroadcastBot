@@ -30,21 +30,6 @@ Bot = Client(
 async def _(bot, cmd):
     await handle_user_status(bot, cmd)
 
-@Bot.on_message(filters.command("start") & filters.private)
-async def startprivate(client, message):
-    # return
-    chat_id = message.from_user.id
-    if not await db.is_user_exist(chat_id):
-        data = await client.get_me()
-        BOT_USERNAME = data.username
-        await db.add_user(chat_id)
-        if LOG_CHANNEL:
-            await client.send_message(
-                LOG_CHANNEL,
-                f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
-            )
-        else:
-
 
 @Bot.on_message(filters.command("settings"))
 async def opensettings(bot, cmd):
