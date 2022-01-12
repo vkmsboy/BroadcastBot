@@ -31,25 +31,6 @@ async def _(bot, cmd):
     await handle_user_status(bot, cmd)
 
 
-@Bot.on_message(filters.command("settings"))
-async def opensettings(bot, cmd):
-    user_id = cmd.from_user.id
-    await cmd.reply_text(
-        f"`Here You Can Set Your Settings:`\n\nSuccessfully setted notifications to **{await db.get_notif(user_id)}**",
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        f"NOTIFICATION  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
-                        callback_data="notifon",
-                    )
-                ],
-                [InlineKeyboardButton("❎", callback_data="closeMeh")],
-            ]
-        ),
-    )
-
-
 @Bot.on_message(filters.private & filters.command("broadcast"))
 async def broadcast_handler_open(_, m):
     if m.from_user.id not in AUTH_USERS:
